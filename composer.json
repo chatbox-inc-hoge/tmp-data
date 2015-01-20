@@ -1,0 +1,19 @@
+{
+    "name": "chatbox/tmp-data",
+    "type": "project",
+    "description" : "temp data provider",
+    "keywords": [],
+    "license": "MIT",
+    "repositories": [
+    ],
+    "require": {
+        "php": ">=5.4",
+        "illuminate/database": "~4.2.12"
+    },
+    "autoload":{
+        "psr-4":{
+            "Chatbox\\TmpData\\":"src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
