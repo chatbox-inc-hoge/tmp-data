@@ -8,63 +8,46 @@
 
 namespace Chatbox\TmpData;
 
-use \Illuminate\Database\Capsule\Manager as Capsule;
-
 class TmpDataProvider {
 
-    public $tableName;
-
     /**
-     * @var \Illuminate\Database\Capsule\Manager
+     * @var Eloquent\TmpData
      */
-    public $capsule;
+    public $model;
 
-    function __construct()
+    function __construct(Eloquent\TmpData $eloquent)
     {
 
-        $this->capsule = new Capsule;
-
-        $this->capsule->addConnection([
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'misaki',
-            'username'  => 'root',
-            'password'  => '',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-        ]);
-    }
-
-    /**
-     * @param array $data
-     * @return TmpData
-     */
-    protected function getModel(array $data){
-        $data = $data + [
-
-            ];
-        $model = new TmpData($data);
-        $model->setTable($this->tableName);
-        return $model;
+        $this->model = $eloquent;
     }
 
     public function set($key,$value){
-        $model = $this->getModel([
+        return $this->model->create([
             "key" => $key,
             "value" => $value
         ]);
-        return $model->save();
     }
 
+    public function getAll(){
+
+    }
+
+    /**
+     * @param $key
+     * @param bool $updateTimestamp
+     * @return TmpData
+     */
     public function pickUp($key,$updateTimestamp=true){
-        $model = $this->getModel([]);
-        $model = $model->find($key);
-
+        return $this->model->find($key);
     }
 
+
+    /**
+     * @param $key
+     * @return TmpData
+     */
     public function read($key){
-        $this->pickUp($key,false);
+        return $this->pickUp($key,false);
     }
 
 

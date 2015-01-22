@@ -10,21 +10,17 @@ namespace Chatbox\TmpData;
 
 use \Illuminate\Database\Schema\Blueprint;
 
-class SchemaBuilder {
+class SchemaBuilder{
 
-
-    function __invoke()
-    {
-        if(func_num_args() === 1 && ($blueprint = func_get_arg(0)) && $blueprint instanceof Blueprint){
-            $blueprint->string("key",true);
+    static function getBuilder(){
+        return function(Blueprint $blueprint){
+            $blueprint->string("key");
             $blueprint->text("value");
-            $blueprint->timestamp("createdAt");
-            $blueprint->timestamp("updatedAt");
-            $blueprint->timestamp("accessAt");
-            $blueprint->timestamp("expiredAt");
-            $blueprint->timestamp("deletedAt");
-        }
+            $blueprint->timestamp("created_at");
+            $blueprint->timestamp("updated_at");
+            $blueprint->timestamp("access_at");
+            $blueprint->timestamp("expired_at");
+            $blueprint->timestamp("deleted_at");
+        };
     }
-
-
-} 
+}
